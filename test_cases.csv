@@ -1,0 +1,16 @@
+﻿test_case_id,requirement_id,condition_id,scenario_id,title,fixture_key,operation,input_json,expected_json,priority
+TC-CAT-001,REQ-01,COND-CAT-01,TS-CAT-01,Truy vấn sản phẩm active,default,catalog_active,"{""sku"": ""A""}","{""sku"": ""A"", ""active"": true}",P1
+TC-CAT-002,REQ-01,COND-CAT-02,TS-CAT-02,Từ chối sản phẩm inactive,default,catalog_inactive,"{""sku"": ""A""}","{""error"": ""PRODUCT_UNAVAILABLE""}",P1
+TC-CAT-003,REQ-01,COND-CAT-02,TS-CAT-02,Từ chối SKU không tồn tại,default,catalog_missing,"{""sku"": ""X""}","{""error"": ""PRODUCT_UNAVAILABLE""}",P1
+TC-CART-001,REQ-02,COND-CART-01,TS-CART-01,Thêm sản phẩm với quantity hợp lệ,default,cart_add,"{""sku"": ""A"", ""quantity"": 2}","{""quantity"": 2}",P1
+TC-CART-002,REQ-02,COND-CART-02,TS-CART-02,Từ chối quantity bằng 0,default,cart_invalid,"{""sku"": ""A"", ""quantity"": 0}","{""error"": ""INVALID_QUANTITY""}",P1
+TC-CART-003,REQ-02,COND-CART-02,TS-CART-02,Cộng dồn cùng SKU,default,cart_accumulate,"{""sku"": ""A"", ""first"": 2, ""second"": 3}","{""quantity"": 5}",P1
+TC-PRI-001,REQ-03,COND-PRI-01,TS-PRI-01,Subtotal một sản phẩm,default,pricing_single,"{""sku"": ""A"", ""quantity"": 2}","{""subtotal"": ""400000"", ""type"": ""Decimal""}",P1
+TC-PRI-002,REQ-03,COND-PRI-02,TS-PRI-02,Subtotal nhiều sản phẩm,default,pricing_multi,"{""A"": 1, ""B"": 1}","{""subtotal"": ""500000"", ""type"": ""Decimal""}",P1
+TC-PRI-003,REQ-03,COND-PRI-02,TS-PRI-02,Kiểm tra subtotal với Decimal,default,pricing_decimal,"{""A"": 2, ""C"": 1}","{""subtotal"": ""550000"", ""type"": ""Decimal""}",P1
+TC-SHP-001,REQ-09,COND-SHP-01,TS-SHP-01,Nội thành dưới ngưỡng 500000,default,shipping_inner_below,"{""subtotal"": 499999, ""area"": ""inner""}","{""shipping"": ""30000""}",P1
+TC-SHP-002,REQ-09,COND-SHP-01,TS-SHP-01,Nội thành đúng ngưỡng 500000,default,shipping_inner_boundary,"{""subtotal"": 500000, ""area"": ""inner""}","{""shipping"": ""0""}",P1
+TC-SHP-003,REQ-09,COND-SHP-02,TS-SHP-02,Phí ship ngoại thành,default,shipping_outer,"{""subtotal"": 500000, ""area"": ""outer""}","{""shipping"": ""50000""}",P1
+TC-PAY-001,REQ-10,COND-PAY-01,TS-PAY-01,Thanh toán COD,500k,payment_cod,{},"{""status"": ""PENDING_COD""}",P1
+TC-PAY-002,REQ-10,COND-PAY-02,TS-PAY-02,ONLINE được approved,500k,payment_approved,{},"{""status"": ""PAID""}",P1
+TC-PAY-003,REQ-10,COND-PAY-02,TS-PAY-02,ONLINE bị declined,500k,payment_declined,{},"{""error"": ""PAYMENT_DECLINED"", ""orders"": 0}",P1
