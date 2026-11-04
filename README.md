@@ -36,8 +36,6 @@
 ## 6. Công cụ sử dụng
 - Python
 - Google Colab
-- Pandas
-- Matplotlib
 - GitHub
 
 ## 7. Báo cáo
